@@ -58,7 +58,7 @@ describe Suushiki do
   ].each do |id, input, expected|
       describe '.exec' do
         context input do
-          subject { Suushiki.exec input }
+          subject { Suushiki.new(input).calc }
           it { should eq expected }
         end
       end
