@@ -1,23 +1,21 @@
 class Suushiki
-  LIST = %w(| & + *)
+  OPERATORS = %w(| & + *)
 
-  def initialize(shiki)
-    @ary = shiki.split(/(\*|\+|\&|\|)/)
+  def initialize(formula)
+    @list = formula.split(/(\*|\+|\&|\|)/)
   end
 
   def calc
-    LIST.each { |i| exec i }
-    @ary[0]
+    OPERATORS.each { |i| my_eval i }
+    @list[0]
   end
 
-  private
-
-  def exec(x)
-    while @ary.include?(x) do
-      @ary.each_with_index do |item, i|
-        if item == x
-          res = eval "#{@ary[i - 1]} #{x} #{@ary[i + 1]}"
-          @ary[i-1..i+1] = res.to_s
+  def my_eval(operator)
+    while @list.include?(operator) do
+      @list.each_with_index do |item, i|
+        if item == operator
+          res = eval "#{@list[i - 1]} #{operator} #{@list[i + 1]}"
+          @list[(i - 1)..(i + 1)] = res.to_s
         end
       end
     end
